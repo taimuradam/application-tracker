@@ -1,4 +1,4 @@
-import { companyFromUrl, normalizeLink } from "./company-from-url.js";
+import { companyFromUrl, normalizeLink } from "./company-from-url.js?v=2";
 
 const STORAGE_KEY = "application-tracker.entries";
 const FOLLOW_UP_AFTER_DAYS = 14;

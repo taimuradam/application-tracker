@@ -34,3 +34,10 @@ npm test
 ## Deploy
 
 Static files, no build step. GitHub Pages serving the `main` branch root works as-is.
+
+GitHub Pages lets browsers cache files for 10 minutes. To stop a reload right after a deploy from mixing old and new files, the CSS and JS links carry a version tag. **Bump the version on every change to `styles.css`, `app.js` or `company-from-url.js`** in three places:
+
+- `index.html`: `styles.css?v=N` and `app.js?v=N`
+- `app.js`: the `./company-from-url.js?v=N` import
+
+`npm test` fails if the three don't match.
