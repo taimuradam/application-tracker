@@ -41,3 +41,16 @@ GitHub Pages lets browsers cache files for 10 minutes. To stop a reload right af
 - `app.js`: the `./company-from-url.js?v=N` import
 
 `npm test` fails if the three don't match.
+
+## Icons
+
+The PNGs in `icons/` are rendered from the SVGs next to them:
+
+- `icon-macos.svg` → `icon-192.png`, `icon-512.png`, `icon-1024.png`. These have the macOS shape, padding and shadow built in, because Safari's Add to Dock uses the manifest icons without reshaping them.
+- `icon-full.svg` → `apple-touch-icon.png`, edge to edge, since iOS rounds the corners itself.
+- `icon-maskable.svg` → `icon-maskable-512.png`, with the artwork kept inside Android's safe zone.
+- `icon.svg` is the browser tab icon, used as-is.
+
+```bash
+cd icons && rsvg-convert -w 1024 -h 1024 icon-macos.svg -o icon-1024.png
+```
