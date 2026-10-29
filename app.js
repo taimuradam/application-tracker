@@ -1,7 +1,6 @@
 import { companyFromUrl, normalizeLink } from "./company-from-url.js";
 
 const STORAGE_KEY = "application-tracker.entries";
-const WEEKLY_GOAL = 23;
 const FOLLOW_UP_AFTER_DAYS = 14;
 const DELETE_CONFIRM_MS = 3000;
 const SAVED_NOTICE_MS = 2500;
@@ -49,9 +48,8 @@ const elements = {
   referralInput: document.getElementById("referral-input"),
   formMessage: document.getElementById("form-message"),
   weekCount: document.getElementById("week-count"),
-  weekBar: document.getElementById("week-bar"),
-  weekBarFill: document.getElementById("week-bar-fill"),
   totalCount: document.getElementById("total-count"),
+  rejectionCount: document.getElementById("rejection-count"),
   interviewCount: document.getElementById("interview-count"),
   filters: document.getElementById("filters"),
   searchInput: document.getElementById("search-input"),
@@ -530,6 +528,7 @@ function getDaysWaiting(entry, todayKey) {
 function renderStats(todayKey) {
   const weekStartKey = getWeekStartKey(todayKey);
   let weekCount = 0;
+  let rejectionCount = 0;
   let interviewCount = 0;
 
   for (const entry of state.entries) {
@@ -538,22 +537,19 @@ function renderStats(todayKey) {
       weekCount += 1;
     }
 
+    if (entry.status === "Rejected") {
+      rejectionCount += 1;
+    }
+
     const isInterviewStage = entry.status === "Interviewing" || entry.status === "Offer";
     if (isInterviewStage) {
       interviewCount += 1;
     }
   }
 
-  const weekRatio = weekCount / WEEKLY_GOAL;
-  const weekPercent = Math.min(100, weekRatio * 100);
-  const goalIsMet = weekCount >= WEEKLY_GOAL;
-
-  elements.weekCount.textContent = weekCount + " / " + WEEKLY_GOAL;
-  elements.weekBarFill.style.width = weekPercent + "%";
-  elements.weekBar.setAttribute("aria-valuenow", String(Math.min(weekCount, WEEKLY_GOAL)));
-  elements.weekBar.setAttribute("aria-valuemax", String(WEEKLY_GOAL));
-  elements.weekBar.classList.toggle("is-complete", goalIsMet);
+  elements.weekCount.textContent = String(weekCount);
   elements.totalCount.textContent = String(state.entries.length);
+  elements.rejectionCount.textContent = String(rejectionCount);
   elements.interviewCount.textContent = String(interviewCount);
 }
 

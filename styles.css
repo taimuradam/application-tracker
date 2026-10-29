@@ -177,26 +177,6 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
-.week-bar {
-  width: 72px;
-  height: 5px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: var(--border);
-}
-
-.week-bar-fill {
-  width: 0;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--accent);
-  transition: width 200ms ease;
-}
-
-.week-bar.is-complete .week-bar-fill {
-  background: var(--success-text);
-}
-
 .add-form {
   display: grid;
   grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.2fr) minmax(0, 1.4fr) auto auto;
@@ -665,10 +645,6 @@ button {
     font-size: 12px;
   }
 
-  .week-bar {
-    width: 44px;
-  }
-
   .entry {
     grid-template-columns: minmax(0, 1fr) auto auto;
     grid-template-areas:
@@ -727,9 +703,5 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .entry.is-new {
     animation: none;
-  }
-
-  .week-bar-fill {
-    transition: none;
   }
 }
