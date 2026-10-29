@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0f13" media="(prefers-color-scheme: dark)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Applications">
+  <meta name="description" content="Log job applications in seconds.">
+  <title>Application Tracker</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <h1 class="title">Applications</h1>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">This week</span>
+          <span class="stat-value" id="week-count">0 / 23</span>
+          <div class="week-bar" id="week-bar" role="progressbar" aria-label="Weekly goal" aria-valuemin="0" aria-valuemax="23" aria-valuenow="0">
+            <div class="week-bar-fill" id="week-bar-fill"></div>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Total</span>
+          <span class="stat-value" id="total-count">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Interviews</span>
+          <span class="stat-value" id="interview-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <form class="add-form" id="add-form" novalidate autocomplete="off">
+      <div class="link-field">
+        <label class="visually-hidden" for="link-input">Job link</label>
+        <input class="input" id="link-input" type="text" inputmode="url" placeholder="Paste job link" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" data-1p-ignore data-lpignore="true" autofocus>
+        <button class="paste-button" id="paste-button" type="button">Paste</button>
+      </div>
+      <label class="visually-hidden" for="company-input">Company</label>
+      <input class="input" id="company-input" type="text" placeholder="Company" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="done" data-1p-ignore data-lpignore="true">
+      <label class="visually-hidden" for="role-input">Role</label>
+      <input class="input" id="role-input" type="text" placeholder="Role (optional)" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="done" data-1p-ignore data-lpignore="true">
+      <label class="referral-toggle">
+        <input id="referral-input" type="checkbox">
+        <span>Referral</span>
+      </label>
+      <button class="add-button" type="submit">Add</button>
+    </form>
+    <p class="form-message" id="form-message" aria-live="polite"></p>
+
+    <section class="list-section" aria-label="Applications">
+      <div class="toolbar">
+        <div class="filters" id="filters" role="group" aria-label="Filter by status"></div>
+        <label class="visually-hidden" for="search-input">Search company or role</label>
+        <input class="input search" id="search-input" type="search" placeholder="Search company or role" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search">
+      </div>
+      <ul class="entry-list" id="entry-list"></ul>
+      <p class="empty-state" id="empty-state" hidden></p>
+    </section>
+
+    <footer class="data-bar">
+      <span class="data-note">Saved in this browser only. Export to back up or move to another device.</span>
+      <button class="ghost-button" id="export-json-button" type="button">Export JSON</button>
+      <button class="ghost-button" id="export-csv-button" type="button">Export CSV</button>
+      <button class="ghost-button" id="import-button" type="button">Import</button>
+      <input id="import-input" type="file" accept=".json,.csv,application/json,text/csv" hidden>
+      <p class="data-message" id="data-message" aria-live="polite"></p>
+    </footer>
+  </main>
+</body>
+</html>
